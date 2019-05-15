@@ -1,8 +1,8 @@
 package primitives;
 
 public class Point2D implements Comparable<Point2D> {
-    Coordinate x;
-    Coordinate y;
+    private Coordinate x;
+    private Coordinate y;
 
     public Point2D(Coordinate x, Coordinate y) {
         this.x = x;
@@ -11,8 +11,8 @@ public class Point2D implements Comparable<Point2D> {
 
 
     public Point2D() {
-        x.coordinate=0;
-        y.coordinate=0;
+        x = new Coordinate();
+        y = new Coordinate();
 
     }
     public Point2D(Point2D p) {
@@ -38,14 +38,14 @@ public class Point2D implements Comparable<Point2D> {
 
     @Override
     public String toString() {
-        return "Point2D x =" + x +
-                ", y=" + y;
+        return "(" + x + ", " + y+")";
     }
 
     @Override
     public int compareTo(Point2D o) {
-        if (this.x==o.x && this.y==o.y)
-        return 1;
-        else return 0;
+        if ((this.x.compareTo(o.x) + this.y.compareTo(o.y))==0)
+            return 0;
+        else
+            return -1;
     }
 }
