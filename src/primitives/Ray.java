@@ -12,7 +12,7 @@ public class Ray implements Comparable<Ray> {
     public Ray(Point3D POO, Vector direction) {
 
         this.POO = new Point3D(POO);
-        this.direction =new Vector(direction);
+        this.direction = new Vector(direction);
     }
 
     public Point3D getPOO() {
@@ -31,18 +31,18 @@ public class Ray implements Comparable<Ray> {
         this.direction = direction;
     }
 
-    public Ray(Ray r){
+    public Ray(Ray r) {
         this.POO = new Point3D(r.POO);
         this.direction = new Vector(r.direction);
     }
 
     @Override
     public String toString() {
-        return "{" + POO + "," + direction +'}';
+        return "{" + POO + "," + direction + '}';
     }
 
     @Override
     public int compareTo(Ray o) {
-        return this.POO.compareTo(o.POO)+this.direction.compareTo(o.direction);
+        return this.POO.compareTo(o.POO) + this.direction.compareTo(o.direction);
     }
 }

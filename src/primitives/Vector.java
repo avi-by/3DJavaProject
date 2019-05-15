@@ -11,8 +11,17 @@ public class Vector implements Comparable<Vector> {
         this.head = new Point3D();
     }
 
-    public  Vector(Vector v){
+    public Vector(Vector v) {
         this.head = new Point3D(v.head);
+    }
+
+    public Vector(Point3D p2, Point3D p1) {
+        this.head = new Point3D(p2);
+        this.head.subtract(new Vector(p1));
+    }
+
+    public Vector(double x, double y, double z) {
+        this.head = new Point3D(x, y, z);
     }
 
     public Point3D getHead() {
@@ -25,7 +34,7 @@ public class Vector implements Comparable<Vector> {
 
     @Override
     public String toString() {
-        return ""+head;
+        return "" + head;
     }
 
     @Override
@@ -33,18 +42,18 @@ public class Vector implements Comparable<Vector> {
         return this.head.compareTo(o.head);
     }
 
-    public void add(Vector v){
+    public void add(Vector v) {
         head.add(v);
     }
 
-    public void subtract(Vector v){
+    public void subtract(Vector v) {
         head.subtract(v);
     }
 
-    public void scale(double scalingFacor){
-        this.head.setX(new Coordinate(head.getX().getCoordinate()*scalingFacor));
-        this.head.setY(new Coordinate(head.getY().getCoordinate()*scalingFacor));
-        this.head.setZ(new Coordinate(head.getZ().getCoordinate()*scalingFacor));
+    public void scale(double scalingFacor) {
+        this.head.setX(new Coordinate(head.getX().getCoordinate() * scalingFacor));
+        this.head.setY(new Coordinate(head.getY().getCoordinate() * scalingFacor));
+        this.head.setZ(new Coordinate(head.getZ().getCoordinate() * scalingFacor));
     }
 
     public double length() {
@@ -57,13 +66,13 @@ public class Vector implements Comparable<Vector> {
         if (len == 0) {
             throw new ArithmeticException("length is 0");
         }
-        scale(1.0/len);
+        scale(1.0 / len);
     }
 
     public double dotProduct(Vector v) {
-        return this.head.getX().getCoordinate()*v.head.getX().getCoordinate()
-                + this.head.getY().getCoordinate()*v.head.getY().getCoordinate()
-                + this.head.getZ().getCoordinate()*v.head.getZ().getCoordinate();
+        return this.head.getX().getCoordinate() * v.head.getX().getCoordinate()
+                + this.head.getY().getCoordinate() * v.head.getY().getCoordinate()
+                + this.head.getZ().getCoordinate() * v.head.getZ().getCoordinate();
     }
 
     public Vector crossProduct(Vector vector) {

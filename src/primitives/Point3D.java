@@ -10,12 +10,17 @@ public class Point3D extends Point2D {
 
     public Point3D() {
         super();
-        z =new Coordinate();
+        z = new Coordinate();
     }
 
-    public Point3D(Point3D p){
-        super(p.x,p.y);
+    public Point3D(Point3D p) {
+        super(p.x, p.y);
         this.z = new Coordinate(p.z);
+    }
+
+    public Point3D(double x, double y, double z) {
+        super(x, y);
+        this.z = new Coordinate(z);
     }
 
     public Coordinate getZ() {
@@ -28,7 +33,7 @@ public class Point3D extends Point2D {
 
     @Override
     public String toString() {
-        return "(" +getX()+","+getY()+","+z +")";
+        return "(" + getX() + "," + getY() + "," + z + ")";
     }
 
     @Override
@@ -39,7 +44,7 @@ public class Point3D extends Point2D {
         Point2D tempP2d = new Point2D(p3d);
         Point2D tempThisP2d = new Point2D(this);
 
-        if ((tempThisP2d.compareTo(tempP2d) + z.compareTo(((Point3D) p3d).z)) == 0 )
+        if ((tempThisP2d.compareTo(tempP2d) + z.compareTo(((Point3D) p3d).z)) == 0)
             return 0;
         else
             return -1;

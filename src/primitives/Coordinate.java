@@ -25,7 +25,7 @@ public class Coordinate implements Comparable<Coordinate> {
 
     @Override
     public String toString() {
-        return ""+coordinate;
+        return "" + coordinate;
     }
 
     @Override
@@ -36,11 +36,11 @@ public class Coordinate implements Comparable<Coordinate> {
             return -1;
     }
 
-    public void add (Coordinate c){
+    public void add(Coordinate c) {
         coordinate += c.coordinate;
     }
 
-    public void subtract(Coordinate c){
+    public void subtract(Coordinate c) {
         coordinate -= c.coordinate;
     }
 }
