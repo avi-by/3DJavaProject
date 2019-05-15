@@ -1,12 +1,12 @@
 package primitives;
 
 public class Point2D implements Comparable<Point2D> {
-    private Coordinate x;
-    private Coordinate y;
+    protected Coordinate x;
+    protected Coordinate y;
 
     public Point2D(Coordinate x, Coordinate y) {
-        this.x = x;
-        this.y = y;
+        this.x = new Coordinate(x);
+        this.y = new Coordinate(y);
     }
 
 
@@ -16,8 +16,8 @@ public class Point2D implements Comparable<Point2D> {
 
     }
     public Point2D(Point2D p) {
-        this.x = p.x;
-        this.y = p.y;
+        this.x = new Coordinate(p.x);
+        this.y = new Coordinate(p.y);
     }
 
     public Coordinate getX() {
