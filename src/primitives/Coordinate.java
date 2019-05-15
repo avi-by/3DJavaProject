@@ -1,7 +1,7 @@
 package primitives;
 
 public class Coordinate implements Comparable<Coordinate> {
-    double coordinate;
+    private double coordinate;
 
     public Coordinate(double coordinate) {
         this.coordinate = coordinate;
@@ -12,7 +12,7 @@ public class Coordinate implements Comparable<Coordinate> {
     }
 
     public Coordinate(Coordinate c) {
-        this.coordinate = c.coordinate;
+        this.coordinate = c.getCoordinate();
     }
 
     public double getCoordinate() {
@@ -25,15 +25,15 @@ public class Coordinate implements Comparable<Coordinate> {
 
     @Override
     public String toString() {
-        return "coordinate= " + coordinate;
+        return ""+coordinate;
     }
 
     @Override
     public int compareTo(Coordinate o) {
         if (coordinate == o.coordinate)
-            return 1;
-        else
             return 0;
+        else
+            return -1;
     }
 
     public void add (Coordinate c){
