@@ -40,7 +40,7 @@ public class Coordinate implements Comparable<Coordinate> {
         coordinate += c.coordinate;
     }
 
-    public void Substrct  (Coordinate c){
+    public void subtract(Coordinate c){
         coordinate -= c.coordinate;
     }
 }
