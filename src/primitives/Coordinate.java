@@ -44,3 +44,4 @@ public class Coordinate implements Comparable<Coordinate> {
         coordinate -= c.coordinate;
     }
 }
+
