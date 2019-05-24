@@ -60,6 +60,7 @@ public class Triangle extends Geometry implements Comparable<Triangle> {
         } catch (ArithmeticException e) {
 
         }
+        normalVector.scale(-1);
         return normalVector;
     }
 
