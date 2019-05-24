@@ -15,7 +15,7 @@ public class Vector implements Comparable<Vector> {
         this.head = new Point3D(v.head);
     }
 
-    public Vector(Point3D p2, Point3D p1) {
+    public Vector(Point3D p1, Point3D p2) {
         this.head = new Point3D(p2);
         this.head.subtract(new Vector(p1));
     }

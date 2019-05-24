@@ -19,7 +19,7 @@ public class Point2D implements Comparable<Point2D> {
     public Point2D(Point2D p) {
         this.x = new Coordinate(p.x);
         this.y = new Coordinate(p.y);
-    }
+        }
 
     public Point2D(double x, double y) {
         this.x = new Coordinate(x);

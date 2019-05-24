@@ -5,6 +5,8 @@ public class Plane extends Geometry implements Comparable<Plane> {
     private Point3D p;
     private Vector normal;
 
+
+
     public Plane(Point3D p, Vector normal) {
         this.p = new Point3D(p);
         this.normal = new Vector(normal);
