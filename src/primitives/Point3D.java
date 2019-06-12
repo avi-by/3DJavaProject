@@ -50,20 +50,20 @@ public class Point3D extends Point2D {
             return -1;
     }
 
-    public void add(Vector vector) {
+    public Point3D add(Vector vector) {
 
         this.x.add(vector.getHead().getX());
         this.y.add(vector.getHead().getY());
         this.z.add(vector.getHead().getZ());
-
+        return this;
     }
 
-    public void subtract(Vector vector) {
+    public Point3D subtract(Vector vector) {
 
         this.x.subtract(vector.getHead().getX());
         this.y.subtract(vector.getHead().getY());
         this.z.subtract(vector.getHead().getZ());
-
+        return this;
     }
 
 }

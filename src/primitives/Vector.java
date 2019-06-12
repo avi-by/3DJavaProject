@@ -46,27 +46,31 @@ public class Vector implements Comparable<Vector> {
         head.add(v);
     }
 
-    public void subtract(Vector v) {
+    public Vector subtract(Vector v) {
+
         head.subtract(v);
+        return this;
     }
 
-    public void scale(double scalingFacor) {
+    public Vector scale(double scalingFacor) {
         this.head.setX(new Coordinate(head.getX().getCoordinate() * scalingFacor));
         this.head.setY(new Coordinate(head.getY().getCoordinate() * scalingFacor));
         this.head.setZ(new Coordinate(head.getZ().getCoordinate() * scalingFacor));
+        return this;
     }
 
     public double length() {
         return Math.sqrt(Math.pow(head.getX().getCoordinate(), 2) + Math.pow(head.getY().getCoordinate(), 2) + Math.pow(head.getZ().getCoordinate(), 2));
     }
 
-    public void normalize() throws ArithmeticException // Throws exception if length = 0
+    public Vector normalize() throws ArithmeticException // Throws exception if length = 0
     {
         double len = length();
         if (len == 0) {
             throw new ArithmeticException("length is 0");
         }
         scale(1.0 / len);
+        return this;
     }
 
     public double dotProduct(Vector v) {
