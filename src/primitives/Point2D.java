@@ -11,9 +11,8 @@ public class Point2D implements Comparable<Point2D> {
 
 
     public Point2D() {
-        x = new Coordinate();
-        y = new Coordinate();
-
+        setX(Coordinate.ZERO);
+        setY(Coordinate.ZERO);
     }
 
     public Point2D(Point2D p) {

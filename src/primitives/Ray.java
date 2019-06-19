@@ -9,10 +9,10 @@ public class Ray implements Comparable<Ray> {
         direction = new Vector();
     }
 
-    public Ray(Point3D POO, Vector direction) {
-
-        this.POO = new Point3D(POO);
-        this.direction = new Vector(direction);
+    public Ray(Point3D poo, Vector direction){
+        this.POO = new Point3D(poo);
+        this.direction = new Vector (direction);
+        this.direction.normalize();
     }
 
     public Point3D getPOO() {

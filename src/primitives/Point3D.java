@@ -1,6 +1,7 @@
 package primitives;
 
 public class Point3D extends Point2D {
+    public static final Point3D ZERO = new Point3D();
     private Coordinate z;
 
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
@@ -50,19 +51,29 @@ public class Point3D extends Point2D {
             return -1;
     }
 
+    public Point3D addVector(Vector v) {
+        Point3D p_vec = v.getHead();
+
+        Point3D result = new Point3D(
+                this.getX().add(p_vec.getX()),
+                this.getY().add(p_vec.getY()),
+                this.getZ().add(p_vec.getZ()));
+        return result;
+    }
+
     public Point3D add(Vector vector) {
 
-        this.x.add(vector.getHead().getX());
-        this.y.add(vector.getHead().getY());
-        this.z.add(vector.getHead().getZ());
+        x=this.x.add(vector.getHead().getX());
+        y=this.y.add(vector.getHead().getY());
+        z=this.z.add(vector.getHead().getZ());
         return this;
     }
 
     public Point3D subtract(Vector vector) {
 
-        this.x.subtract(vector.getHead().getX());
-        this.y.subtract(vector.getHead().getY());
-        this.z.subtract(vector.getHead().getZ());
+        x=this.x.subtract(vector.getHead().getX());
+        y=this.y.subtract(vector.getHead().getY());
+        z=this.z.subtract(vector.getHead().getZ());
         return this;
     }
 

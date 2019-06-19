@@ -1,6 +1,7 @@
 package primitives;
 
 public class Coordinate implements Comparable<Coordinate> {
+    public static Coordinate ZERO = new Coordinate(0.0);
     private double coordinate;
 
     public Coordinate(double coordinate) {
@@ -36,12 +37,26 @@ public class Coordinate implements Comparable<Coordinate> {
             return -1;
     }
 
-    public void add(Coordinate c) {
-        coordinate += c.coordinate;
+    public Coordinate subtract(Coordinate other) {
+        return new Coordinate(Util.usubtract(coordinate, other.coordinate));
     }
 
-    public void subtract(Coordinate c) {
-        coordinate -= c.coordinate;
+    public Coordinate add(Coordinate other) {
+        return new Coordinate(Util.uadd(coordinate, other.coordinate));
+    }
+
+    /**
+     *
+     * @param num
+     * @return new updated Coordinate
+     */
+    public Coordinate scale(double num) {
+
+        return new Coordinate(Util.uscale(coordinate, num));
+    }
+
+    public Coordinate multiply(Coordinate other) {
+        return new Coordinate(Util.uscale(coordinate, other.coordinate));
     }
 }
 

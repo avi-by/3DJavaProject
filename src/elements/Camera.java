@@ -15,9 +15,6 @@ public class Camera implements Comparable<Camera> {
         this.VUP = new Vector( VUP);
         this.VTOWARD = new Vector( VTOWARD);
         this.VRIGHT = new Vector( VTOWARD.crossProduct(VUP));
-        VUP.normalize();
-        VTOWARD.normalize();
-        VRIGHT.normalize();
     }
 
     public Camera() {
@@ -35,7 +32,7 @@ public class Camera implements Comparable<Camera> {
     }
 
     public Point3D getCenterView() {
-        return centerView;
+        return new Point3D(centerView);
     }
 
     public void setCenterView(Point3D centerView) {
@@ -43,7 +40,7 @@ public class Camera implements Comparable<Camera> {
     }
 
     public Vector getVUP() {
-        return VUP;
+        return new Vector( VUP);
     }
 
     public void setVUP(Vector VUP) {
@@ -51,7 +48,7 @@ public class Camera implements Comparable<Camera> {
     }
 
     public Vector getVRIGHT() {
-        return VRIGHT;
+        return new Vector( VRIGHT);
     }
 
     public void setVRIGHT(Vector VRIGHT) {
@@ -59,7 +56,7 @@ public class Camera implements Comparable<Camera> {
     }
 
     public Vector getVTOWARD() {
-        return VTOWARD;
+        return new Vector( VTOWARD);
     }
 
     public void setVTOWARD(Vector VTOWARD) {
@@ -80,32 +77,38 @@ public class Camera implements Comparable<Camera> {
                 '}';
     }
 
-    public Ray constructRayThroughPixel (int Nx, int Ny, double x, double y,
-                                  double screenDist, double screenWidth,
-                                  double screenHeight){
-        Vector temp =new Vector(VTOWARD);
-        temp.scale(screenDist);
-        Point3D pc = new Point3D(centerView);
-        pc.add(temp);
-        double Ry = screenHeight/Ny;
-        double Rx = screenWidth/Nx;
-        Point3D Pij=calculatePij(Nx, Ny, x, y, pc, Ry, Rx);
-        Vector Vij =new Vector(centerView,Pij);
-        Vij.normalize();
-        Ray ray = new Ray(centerView,Vij);
-        return ray;
-    }
+    public Ray constructRayThroughPixel(int Nx, int Ny, double i, double j,
+                                        double screenDist, double screenWidth,
+                                        double screenHeight){
 
-    private Point3D calculatePij(int Nx, int Ny, double i, double j, Point3D pc, double ry, double rx) {
-       double yj = (j-Ny/2)*ry+ry/2;
-       double xi =(i-Nx/2)*rx+rx/2;
-       Vector Vright = new Vector(VRIGHT);
-       Vector Vup = new Vector(VUP);
-       Vright.scale(xi);
-       Vup.scale(yj);
-       Vector v =Vright.subtract(Vup);
-       Point3D pij =pc.add(v);
-       return pij;
+
+        // Calculating the image center
+        Vector vToward = new Vector(VTOWARD);
+        Vector vRight = new Vector(VRIGHT);
+        Vector vUP = new Vector(VUP);
+
+        vToward.normalize();
+        vRight.normalize();
+        vUP.normalize();
+
+        Point3D Pc = getCenterView().addVector(vToward.scale(screenDist));
+
+        // Calculating x-y ratios
+        double Rx = screenWidth  / Nx;
+        double Ry = screenHeight / Ny;
+
+        // Calculating P - the intersection point
+        double y_j = (j - (Ny / 2.0)) * Ry + (Ry / 2.0);
+        double x_i = (i - (Nx / 2.0)) * Rx + (Rx / 2.0);
+
+        vRight.scale(x_i);
+        vUP.scale(y_j);
+        Vector deltaV = vRight.subtract(vUP);
+        Point3D p_ij = Pc.addVector(deltaV);
+        Vector V_ij = new Vector(getCenterView(), p_ij);
+        V_ij.normalize();
+        // returning the constructed ray between P0 and the intersection point
+        return new Ray(getCenterView(), V_ij);
     }
 
 }

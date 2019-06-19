@@ -1,9 +1,13 @@
 package primitives;
+import static java.lang.StrictMath.sqrt;
 
 public class Vector implements Comparable<Vector> {
     private Point3D head;
 
     public Vector(Point3D head) {
+        if (head.equals(Point3D.ZERO)) {
+            throw new IllegalArgumentException("not explicit Point(0,0,0) allowed");
+        }
         this.head = new Point3D(head);
     }
 
@@ -15,10 +19,17 @@ public class Vector implements Comparable<Vector> {
         this.head = new Point3D(v.head);
     }
 
-    public Vector(Point3D p1, Point3D p2) {
-        this.head = new Point3D(p2);
-        this.head.subtract(new Vector(p1));
+    public Vector(Point3D pt1, Point3D pt2) {
+
+        if (pt1.equals(pt2)) {
+            throw new IllegalArgumentException("pt1 == pt2");
+        }
+        setHead(new Point3D(
+                pt2.getX().subtract(pt1.getX()),
+                pt2.getY().subtract(pt1.getY()),
+                pt2.getZ().subtract(pt1.getZ())));
     }
+
 
     public Vector(double x, double y, double z) {
         this.head = new Point3D(x, y, z);
@@ -52,15 +63,26 @@ public class Vector implements Comparable<Vector> {
         return this;
     }
 
-    public Vector scale(double scalingFacor) {
-        this.head.setX(new Coordinate(head.getX().getCoordinate() * scalingFacor));
-        this.head.setY(new Coordinate(head.getY().getCoordinate() * scalingFacor));
-        this.head.setZ(new Coordinate(head.getZ().getCoordinate() * scalingFacor));
+    public Vector scale(double scalingFactor) {
+        this.head.setX(head.getX().scale(scalingFactor));
+        this.head.setY(head.getY().scale(scalingFactor));
+        this.head.setZ(head.getZ().scale(scalingFactor));
+
         return this;
     }
 
     public double length() {
-        return Math.sqrt(Math.pow(head.getX().getCoordinate(), 2) + Math.pow(head.getY().getCoordinate(), 2) + Math.pow(head.getZ().getCoordinate(), 2));
+        double x = this.getHead().getX().getCoordinate();
+        double z = this.getHead().getZ().getCoordinate();
+        double y = this.getHead().getY().getCoordinate();
+
+        return sqrt(
+                Util.uadd(
+                        Util.uadd(
+                                Util.uscale(x, x),
+                                Util.uscale(y, y)),
+                        Util.uscale(z, z)));
+
     }
 
     public Vector normalize() throws ArithmeticException // Throws exception if length = 0
@@ -73,18 +95,41 @@ public class Vector implements Comparable<Vector> {
         return this;
     }
 
-    public double dotProduct(Vector v) {
-        return this.head.getX().getCoordinate() * v.head.getX().getCoordinate()
-                + this.head.getY().getCoordinate() * v.head.getY().getCoordinate()
-                + this.head.getZ().getCoordinate() * v.head.getZ().getCoordinate();
+    public double dotProduct(Vector vector) {
+
+        double x1 = this.getHead().getX().getCoordinate();
+        double y1 = this.getHead().getY().getCoordinate();
+        double z1 = this.getHead().getZ().getCoordinate();
+
+        double x2 = vector.getHead().getX().getCoordinate();
+        double y2 = vector.getHead().getY().getCoordinate();
+        double z2 = vector.getHead().getZ().getCoordinate() ;
+
+        return Util.uadd(
+                Util.uadd(
+                        Util.uscale(x1, x2),
+                        Util.uscale(y1, y2)),
+                Util.uscale(z1, z2));
+
     }
 
     public Vector crossProduct(Vector vector) {
-        Vector v = new Vector();
-        v.head.setX(new Coordinate(head.getY().getCoordinate() * vector.head.getZ().getCoordinate() - head.getZ().getCoordinate() * vector.head.getY().getCoordinate()));
-        v.head.setY(new Coordinate(head.getZ().getCoordinate() * vector.head.getX().getCoordinate() - head.getX().getCoordinate() * vector.head.getZ().getCoordinate()));
-        v.head.setZ(new Coordinate(head.getX().getCoordinate() * vector.head.getY().getCoordinate() - head.getY().getCoordinate() * vector.head.getX().getCoordinate()));
 
-        return v;
+        double x1 = this.getHead().getX().getCoordinate();
+        double y1 = this.getHead().getY().getCoordinate();
+        double z1 = this.getHead().getZ().getCoordinate();
+
+        double x2 = vector.getHead().getX().getCoordinate();
+        double y2 = vector.getHead().getY().getCoordinate();
+        double z2 = vector.getHead().getZ().getCoordinate();
+
+        Point3D pt = new Point3D(
+                new Coordinate(Util.usubtract(Util.uscale(y1, z2), Util.uscale(z1, y2))),
+                new Coordinate(Util.usubtract(Util.uscale(z1, x2), Util.uscale(x1, z2))),
+                new Coordinate(Util.usubtract(Util.uscale(x1, y2), Util.uscale(y1, x2))));
+        if (pt.equals(Point3D.ZERO)) {
+            return new Vector();
+        }
+        return new Vector(pt);
     }
 }
