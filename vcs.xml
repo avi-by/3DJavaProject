@@ -6,6 +6,10 @@
           <option name="url" value="https://github.com/avi-by/3DJavaProject.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/noamshira/3DProject.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\AVI\IdeaProjects" />
